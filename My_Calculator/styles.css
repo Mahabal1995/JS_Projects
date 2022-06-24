@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to right, #00AAFF, #00FFCC);
+}
+
+.container {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+}
+
+.container > button {
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+    background-color: rgba(255, 255, 255, .75);
+}
+
+.container > button:hover {
+    background-color: rgba(255, 255, 255, .9);
+}
+
+.span-two {
+    grid-column: span 2;
+}
+
+.result {
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, .75);
+    display: flex;
+    align-items: flex-end;  
+    justify-content: space-around ;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.operand1 {
+    color: rgba(255, 255, 255, .9 );
+    font-size: 1.5rem;
+}
+
+.operand2 {
+    color: white;
+    font-size: 1.5rem;
+}
+
+
+/* .result {
+    width: 95%;
+    height: 75px;
+    background-color: azure;
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 5px;
+} */
+
+.button {
+   margin: auto;
+   padding: 5px;
+   display: flex;
+   justify-content: space-around;
+   height: fit-content;
+   box-sizing: border-box;
+   align-items: flex-start;
+}
+
+.numbers {
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.number {
+    width: 25%;
+    height: 25%;
+    margin: 2px;
+    text-align: center;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    padding: 10px;
+    overflow: hidden;
+    background-color: deepskyblue;
+}
+
+.operators {
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 25%;
+    align-items: center;
+}
+
+.operator {
+    width: 95%;
+    height: 20%;
+    margin: 2px;
+    text-align: center;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    padding: 10px;
+    background-color: deepskyblue;
+}

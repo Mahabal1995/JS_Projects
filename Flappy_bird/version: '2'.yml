@@ -1,0 +1,62 @@
+version: '2'
+services:
+  database:
+    image: postgres:11
+    env_file:
+      - ./src/config/.env
+    volumes:
+      - psql-data:/var/lib/postgresql/data
+      - .:/shared
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+  redis:
+    image: redis:3.2
+    env_file:
+      - ./src/config/.env
+  app:
+    build: .
+    tty: true # add this command to keep the container running, otherwise container exits with code 0 after upgrading django version
+    links:
+      - database
+      - redis
+      # - mailcatcher
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/application
+      - ~/.ssh:/root/.ssh
+      - app-python-site-packages:/usr/local/lib/python3.7/site-packages
+      - app-usr-local-bin:/usr/local/bin
+    env_file:
+      - ./src/config/.env
+
+  celery:
+    build: .
+    links:
+      - database
+      - redis
+      # - mailcatcher
+    command: "/bin/bash -c 'cd /application/src && celery -A config worker --logfile /application/logs/celery.log'"
+    volumes:
+      - .:/application
+      - ~/.ssh:/root/.ssh
+      - app-python-site-packages:/usr/local/lib/python3.7/site-packages
+      - app-usr-local-bin:/usr/local/bin
+    env_file:
+      - ./src/config/.env
+
+  # mailcatcher:
+  #   image: masood09/mailcatcher
+  #   ports:
+  #     - 1025:1025
+  #     - 1080:1080
+
+volumes:
+  app-python-site-packages:
+    driver: local
+  psql-data:
+    driver: local
+  app-usr-local-bin:
+    driver: local
